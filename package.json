@@ -34,7 +34,7 @@
     "@ejhammond/eslint-plugin": "^3.0.0"
   },
   "dependencies": {
-    "@commitlint/cli": "^9.1.2",
+    "@commitlint/cli": "^13.2.1",
     "@semantic-release/commit-analyzer": "^6.3.3",
     "@semantic-release/git": "^7.0.18",
     "@semantic-release/github": "^5.5.5",
