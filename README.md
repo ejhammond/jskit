@@ -192,7 +192,7 @@ This is a _huge_ convenience and it's the primary reason that we adopt the stric
 
 In order for this to work, we need write-access to GitHub and NPM. Therefore, `GITHUB_TOKEN` and `NPM_TOKEN` env variables must be defined in order for the release to work.
 
-You should ensure that those two environment variables are defined withing your CI tool.
+You should ensure that those two environment variables are defined within your CI tool.
 
 ##### Local Releases
 
@@ -211,11 +211,11 @@ GITHUB_TOKEN = abcdefghijklmnopqrstuvwxyz
 NPM_TOKEN = abcdefghijklmnopqrstuvwxyz
 ```
 
-Once the environment is set up, simply run build your library (e.g. `yarn build`) and then run `yarn release`.
+Once the environment is set up, simply build your library (e.g. `yarn build`) and then run `yarn release`.
 
 ##### Config
 
-A `lint-staged.config.js` file will be created.
+A `.releaserc.js` file will be created.
 
 ```js
 // .releaserc.js
