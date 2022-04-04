@@ -4,6 +4,9 @@
   "author": "EJ Hammond <ejhammond@hey.com>",
   "description": "Common configurations for js/ts projects",
   "repository": "https://github.com/ejhammond/jskit",
+  "engines": {
+    "node": "17.2"
+  },
   "publishConfig": {
     "access": "public"
   },
@@ -25,13 +28,13 @@
     "release": "node ./bin/release.js"
   },
   "devDependencies": {
-    "@ejhammond/eslint-plugin": "^3.0.0",
-    "eslint": ">=7.0.0",
+    "@ejhammond/eslint-plugin": "^4.0.0",
+    "eslint": "^7.0.0",
     "prettier": "^2.1.2",
     "typescript": "^4.0.3"
   },
   "peerDependencies": {
-    "@ejhammond/eslint-plugin": "^3.0.0"
+    "@ejhammond/eslint-plugin": "^4.0.0"
   },
   "dependencies": {
     "@commitlint/cli": "^9.1.2",

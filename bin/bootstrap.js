@@ -7,6 +7,8 @@ const { format } = require('prettier');
 const prompts = require('prompts');
 const prettierConfig = require('../configs/shared/prettier');
 
+const nodeVersion = "17.2";
+
 function formatWithParser(content, parser) {
   return format(content, { ...prettierConfig, parser });
 }
@@ -173,7 +175,7 @@ version: 2
 jobs:
   release:
     docker:
-      - image: circleci/node:10.15
+      - image: circleci/node:${nodeVersion}
     working_directory: ~/repo
     steps:
 ${ciSteps.map((s) => `      - ${s}`).join('\n')}
@@ -204,6 +206,27 @@ updates:
   ]);
 
   addPackageJSONScript('release', 'jskit-release');
+}
+
+async function node() {
+  // add engines.node to packageJSON
+
+  if (packageJSON.engines === undefined) {
+    packageJSON.engines = {};
+  }
+
+  if (packageJSON.engines.node !== undefined) {
+    console.warn(
+      `JSKit wanted to set the Node engine to ${nodeVersion} but it is already set to ${packageJSON.engines.node}`,
+    );
+    return;
+  }
+
+  packageJSON.engines.node = nodeVersion;
+
+  // create nvmrc
+
+  return createFile('./.nvmrc', `${nodeVersion}\n`);
 }
 
 function onlyIfLibrary(type) {
@@ -275,6 +298,7 @@ async function bootstrap() {
   await prettier(config);
   await lintStaged(config);
   await husky(config);
+  await node(config);
   await semanticRelease(config);
 
   fs.writeFileSync('./package.json', formatJSON(JSON.stringify(packageJSON)), { encoding: 'utf8' });
