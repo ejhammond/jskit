@@ -36,11 +36,15 @@ ${chalk.red(dotEnvResult.error)}
    * Checks that the provided `env` contains each of the required env vars and kills the process (with an error message) if any are missing
    */
   validate: function (env, requiredEnvVars) {
-    const missingEnvVars = requiredEnvVars.filter((envVarName) => env[envVarName] === undefined);
+    const missingEnvVars = requiredEnvVars.filter(
+      (envVarName) => env[envVarName] === undefined,
+    );
 
     if (missingEnvVars.length > 0) {
       console.error(`
-${chalk.red('The following env vars must be defined in order to execute this command')}
+${chalk.red(
+  'The following env vars must be defined in order to execute this command',
+)}
 
 ${missingEnvVars.join(', ')}
 

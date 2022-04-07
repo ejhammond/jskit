@@ -7,7 +7,7 @@ const { format } = require('prettier');
 const prompts = require('prompts');
 const prettierConfig = require('../configs/shared/prettier');
 
-const nodeVersion = "17.2";
+const nodeVersion = '17.2';
 
 function formatWithParser(content, parser) {
   return format(content, { ...prettierConfig, parser });
@@ -60,7 +60,9 @@ function createFile(fileName, content) {
   });
 }
 
-const packageJSON = JSON.parse(fs.readFileSync('./package.json', { encoding: 'utf8' }));
+const packageJSON = JSON.parse(
+  fs.readFileSync('./package.json', { encoding: 'utf8' }),
+);
 
 function addPackageJSONScript(scriptName, script) {
   if (packageJSON.scripts === undefined) {
@@ -94,7 +96,11 @@ async function eslint({ frameworks }) {
 
   await createFile(
     './.eslintrc.js',
-    formatJS(`module.exports = { extends: [ ${plugins.map((p) => `"${p}"`).join(', ')} ] };`),
+    formatJS(
+      `module.exports = { extends: [ ${plugins
+        .map((p) => `"${p}"`)
+        .join(', ')} ] };`,
+    ),
   );
 
   addPackageJSONScript('lint', 'jskit-lint');
@@ -103,7 +109,9 @@ async function eslint({ frameworks }) {
 async function prettier() {
   await createFile(
     './.prettierrc.js',
-    formatJS("module.exports = require('@ejhammond/jskit/configs/shared/prettier');"),
+    formatJS(
+      "module.exports = require('@ejhammond/jskit/configs/shared/prettier');",
+    ),
   );
 
   addPackageJSONScript('format', 'jskit-format');
@@ -129,14 +137,18 @@ trim_trailing_whitespace = true
 async function lintStaged() {
   return createFile(
     './lint-staged.config.js',
-    formatJS("module.exports = require('@ejhammond/jskit/configs/shared/lint-staged');"),
+    formatJS(
+      "module.exports = require('@ejhammond/jskit/configs/shared/lint-staged');",
+    ),
   );
 }
 
 async function husky({ projectType }) {
   return createFile(
     './.huskyrc.js',
-    formatJS(`module.exports = require('@ejhammond/jskit/configs/${projectType}/husky');`),
+    formatJS(
+      `module.exports = require('@ejhammond/jskit/configs/${projectType}/husky');`,
+    ),
   );
 }
 
@@ -162,7 +174,9 @@ async function semanticRelease({
   await Promise.all([
     createFile(
       './commitlint.config.js',
-      formatJS("module.exports = require('@ejhammond/jskit/configs/library/commitlint');"),
+      formatJS(
+        "module.exports = require('@ejhammond/jskit/configs/library/commitlint');",
+      ),
     ),
     createFile(
       './.releaserc.js',
@@ -242,10 +256,15 @@ async function bootstrap() {
       choices: [
         {
           title: 'Library',
-          description: 'Distributed via NPM [includes Semantic Release and CircleCI]',
+          description:
+            'Distributed via NPM [includes Semantic Release and CircleCI]',
           value: 'library',
         },
-        { title: 'App', description: 'Published as a webiste or service', value: 'app' },
+        {
+          title: 'App',
+          description: 'Published as a webiste or service',
+          value: 'app',
+        },
       ],
     },
     {
@@ -261,7 +280,8 @@ async function bootstrap() {
       message: 'What yarn command will build your library?',
       initial: 'build',
       validate: (input) =>
-        !/\s/.test(input) || 'Input should be the name of a yarn script e.g. "build"',
+        !/\s/.test(input) ||
+        'Input should be the name of a yarn script e.g. "build"',
     },
     {
       name: 'hasTestCommand',
@@ -276,15 +296,24 @@ async function bootstrap() {
       message: 'What yarn command will test your library?',
       initial: 'test',
       validate: (input) =>
-        !/\s/.test(input) || 'Input should be the name of a yarn script e.g. "test"',
+        !/\s/.test(input) ||
+        'Input should be the name of a yarn script e.g. "test"',
     },
     {
       name: 'frameworks',
       type: 'multiselect',
       message: 'What frameworks are you using?',
       choices: [
-        { title: 'Node', value: 'node', description: 'e.g. terminal script or Express service' },
-        { title: 'React', value: 'react', description: 'e.g. a web-app or component library' },
+        {
+          title: 'Node',
+          value: 'node',
+          description: 'e.g. terminal script or Express service',
+        },
+        {
+          title: 'React',
+          value: 'react',
+          description: 'e.g. a web-app or component library',
+        },
       ],
       instructions: false,
       hint: '- Use <Space> to select and <Enter> to submit',
@@ -301,7 +330,9 @@ async function bootstrap() {
   await node(config);
   await semanticRelease(config);
 
-  fs.writeFileSync('./package.json', formatJSON(JSON.stringify(packageJSON)), { encoding: 'utf8' });
+  fs.writeFileSync('./package.json', formatJSON(JSON.stringify(packageJSON)), {
+    encoding: 'utf8',
+  });
 }
 
 bootstrap();

@@ -19,7 +19,8 @@ module.exports = {
       '@semantic-release/git',
       {
         assets: ['package.json'],
-        message: 'Chore: ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}',
+        message:
+          'Chore: ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}',
       },
     ],
   ],
