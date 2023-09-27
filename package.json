@@ -1,7 +1,7 @@
 {
   "name": "@ejhammond/jskit",
   "version": "5.0.0",
-  "nonce": "1",
+  "nonce": "2",
   "author": "EJ Hammond <ejhammond@hey.com>",
   "description": "Common configurations for js/ts projects",
   "repository": "https://github.com/ejhammond/jskit",
