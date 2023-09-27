@@ -1,6 +1,6 @@
 {
   "name": "@ejhammond/jskit",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "nonce": "3",
   "author": "EJ Hammond <ejhammond@hey.com>",
   "description": "Common configurations for js/ts projects",
